@@ -1,1 +1,12 @@
 #############PROJEKT###############
+
+=>GRY
+1.Pac-Man
+2.Space Invaders
+3.Snake
+
+
+=>BAZA DANYCH
+- wysylanie danych o uzytkownikach i wynikach do bazy danych
+- sciaganie wszytskich wynikow dla danego uzytkownika
+- sciaganie wszystkich wynikow dla danej gierki
