@@ -1,10 +1,11 @@
-import pygame 
-import assets
-
+import pygame
+import sys
 from sys import exit 
+import os
 
 pygame.init()
-snake_icon = pygame.image.load('snake.png')
+image_path = os.path.join('assets', 'snake.png')
+snake_icon = pygame.image.load(image_path)
 pygame.display.set_icon(snake_icon)
 screen =  pygame.display.set_mode((800,400))
 pygame.display.set_caption('Snake')
@@ -18,5 +19,6 @@ while True:
     
     pygame.display.update()
     clock.tick(60)
+
             
 
