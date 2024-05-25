@@ -14,6 +14,11 @@ class Snake:
             block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
             pygame.draw.rect(screen, (183,111,122), block_rect)
 
+    def move_snake(self):
+        body_copy = self.body[:-1]
+        body_copy.insert(0, body_copy[0]+1)
+        self.body = body_copy
+
 
 class Fruit:
     def __init__(self):
