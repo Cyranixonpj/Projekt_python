@@ -106,6 +106,7 @@ class Main:
         self.check_fail()
 
     def draw_elements(self):
+        self.draw_grid()
         self.fruit.draw_fruit()
         self.snake.draw_snake()
         self.draw_score()
@@ -141,6 +142,19 @@ class Main:
         pygame.draw.rect(screen, (167,209,61), bg_rect)
         screen.blit(score_surface, score_rect)
         screen.blit(fruit, fruit_rect)
+    
+    def draw_grid(self):
+        for x in range(cell_number):
+            if x % 2 == 0:
+                for y in range(cell_number):
+                    if y % 2 == 0:
+                        cell_rect = pygame.Rect(x*cell_size, y*cell_size, cell_size, cell_size)
+                        pygame.draw.rect(screen, (167,209,61), cell_rect)
+            else:
+                for y in range(cell_number):
+                    if y % 2 != 0:
+                        cell_rect = pygame.Rect(x*cell_size, y*cell_size, cell_size, cell_size)
+                        pygame.draw.rect(screen, (167,209,61), cell_rect)
 
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
