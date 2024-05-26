@@ -108,6 +108,7 @@ class Main:
     def draw_elements(self):
         self.fruit.draw_fruit()
         self.snake.draw_snake()
+        self.draw_score()
 
     def check_collision(self):
         if self.fruit.position == self.snake.body[0]:
@@ -128,7 +129,21 @@ class Main:
     def game_over(self):
         pygame.quit()
         exit()
+    
+    def draw_score(self):
+        score_text = str(len(self.snake.body) - 3)
+        score_surface = game_font.render(score_text, True, (56,74,12))
+        score_x = int(cell_size * cell_number - 60)
+        score_y = int(cell_size * cell_number - 40)
+        score_rect = score_surface.get_rect(center = (score_x, score_y))
+        fruit_rect = fruit.get_rect(midright = (score_rect.left, score_rect.centery))
+        bg_rect = pygame.Rect(fruit_rect.left, fruit_rect.top, fruit_rect.width + score_rect.width + 6, fruit_rect.height)
+        pygame.draw.rect(screen, (167,209,61), bg_rect)
+        screen.blit(score_surface, score_rect)
+        screen.blit(fruit, fruit_rect)
 
+
+pygame.mixer.pre_init(44100, -16, 2, 512)
 pygame.init()
 cell_size =40
 cell_number= 20
@@ -141,6 +156,7 @@ pygame.display.set_icon(snake_icon)
 screen =  pygame.display.set_mode((cell_size*cell_number,cell_size*cell_number))
 pygame.display.set_caption('Snake')
 clock = pygame.time.Clock()
+game_font = pygame.font.Font(None, 25)
 
 
 screen_update = pygame.USEREVENT
