@@ -20,7 +20,6 @@ class Snake:
         body_copy.insert(0, body_copy[0] + self.direction)
         self.body = body_copy[:]
 
-
 class Fruit:
     def __init__(self):
         self.x = random.randint(0, cell_number - 1)
@@ -28,7 +27,7 @@ class Fruit:
         self.position = Vector2(self.x, self.y)
     def draw_fruit(self):
         fruit_rect = pygame.Rect(int(self.position.x*cell_size), int(self.position.y*cell_size), cell_size, cell_size)
-        pygame.draw.rect(screen, (126,166,114), fruit_rect)
+        screen.blit(fruit, fruit_rect)
 
 class Main:
     def __init__(self):
@@ -67,8 +66,11 @@ class Main:
 pygame.init()
 cell_size =40
 cell_number= 20
-image_path = os.path.join('assets', 'snake.png')
-snake_icon = pygame.image.load(image_path)
+snake_path = os.path.join('assets', 'snake.png')
+snake_icon = pygame.image.load(snake_path)
+fruit_path = os.path.join('assets', 'fruit.png')
+fruit_icon = pygame.image.load(fruit_path)
+fruit = pygame.transform.scale(fruit_icon, (cell_size, cell_size))
 pygame.display.set_icon(snake_icon)
 screen =  pygame.display.set_mode((cell_size*cell_number,cell_size*cell_number))
 pygame.display.set_caption('Snake')
