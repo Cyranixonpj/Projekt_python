@@ -7,13 +7,79 @@ class Snake:
     def __init__(self):
         self.body = [Vector2(5,10), Vector2(4,10), Vector2(3,10)]
         self.direction = Vector2(1,0)
+        s1_path = os.path.join('assets', 'head_up.png')
+        self.head_up = pygame.image.load(s1_path).convert_alpha()
+        s2_path = os.path.join('assets', 'head_down.png')
+        self.head_down = pygame.image.load(s2_path).convert_alpha()
+        s3_path = os.path.join('assets', 'head_right.png')
+        self.head_right = pygame.image.load(s3_path).convert_alpha()
+        s4_path = os.path.join('assets', 'head_left.png')
+        self.head_left = pygame.image.load(s4_path).convert_alpha()
+        s5_path = os.path.join('assets', 'tail_up.png')
+        self.tail_up = pygame.image.load(s5_path).convert_alpha()
+        s6_path = os.path.join('assets', 'tail_down.png')
+        self.tail_down = pygame.image.load(s6_path).convert_alpha()
+        s7_path = os.path.join('assets', 'tail_right.png')
+        self.tail_right = pygame.image.load(s7_path).convert_alpha()
+        s8_path = os.path.join('assets', 'tail_left.png')
+        self.tail_left = pygame.image.load(s8_path).convert_alpha()
+        s9_path = os.path.join('assets', 'body_vertical.png')
+        self.body_vertical = pygame.image.load(s9_path).convert_alpha()
+        s10_path = os.path.join('assets', 'body_horizontal.png')
+        self.body_horizontal = pygame.image.load(s10_path).convert_alpha()
+        s11_path = os.path.join('assets', 'body_topright.png')
+        self.body_tr = pygame.image.load(s11_path).convert_alpha()
+        s12_path = os.path.join('assets', 'body_topleft.png')
+        self.body_tl = pygame.image.load(s12_path).convert_alpha()
+        s13_path = os.path.join('assets', 'body_bottomright.png')
+        self.body_br = pygame.image.load(s13_path).convert_alpha()
+        s14_path = os.path.join('assets', 'body_bottomleft.png')
+        self.body_bl = pygame.image.load(s14_path).convert_alpha()
 
     def draw_snake(self):
-        for block in self.body:
+        self.update_head_graphics()
+        self.update_tail_graphics()
+
+
+        for index,block in enumerate(self.body):
             x_pos = int(block.x*cell_size)
             y_pos = int(block.y*cell_size)
             block_rect = pygame.Rect(x_pos, y_pos, cell_size, cell_size)
-            pygame.draw.rect(screen, (183,111,122), block_rect)
+            
+            if index == 0:
+                screen.blit(self.head, block_rect)
+            elif index == len(self.body) - 1:
+                screen.blit(self.tail, block_rect)
+            else:
+                prevoius_block = self.body[index + 1] - block
+                next_block = self.body[index - 1] - block
+                if prevoius_block.x == next_block.x:
+                    screen.blit(self.body_vertical, block_rect)
+                elif prevoius_block.y == next_block.y:
+                    screen.blit(self.body_horizontal, block_rect)
+                else:
+                    if prevoius_block.x == -1 and next_block.y == -1 or prevoius_block.y == -1 and next_block.x == -1:
+                        screen.blit(self.body_tl, block_rect)
+                    elif prevoius_block.x == -1 and next_block.y == 1 or prevoius_block.y == 1 and next_block.x == -1:
+                        screen.blit(self.body_bl, block_rect)
+                    elif prevoius_block.x == 1 and next_block.y == -1 or prevoius_block.y == -1 and next_block.x == 1:
+                        screen.blit(self.body_tr, block_rect)
+                    elif prevoius_block.x == 1 and next_block.y == 1 or prevoius_block.y == 1 and next_block.x == 1:
+                        screen.blit(self.body_br, block_rect)
+
+    def update_head_graphics(self):
+        head_relation = self.body[1] - self.body[0]
+        if head_relation == Vector2(1,0): self.head = self.head_left
+        elif head_relation == Vector2(-1,0): self.head = self.head_right
+        elif head_relation == Vector2(0,1): self.head = self.head_up
+        elif head_relation == Vector2(0,-1): self.head = self.head_down
+
+    def update_tail_graphics(self):
+        tail_relation = self.body[-2] - self.body[-1]
+        if tail_relation == Vector2(1,0): self.tail = self.tail_left
+        elif tail_relation == Vector2(-1,0): self.tail = self.tail_right
+        elif tail_relation == Vector2(0,1): self.tail = self.tail_up
+        elif tail_relation == Vector2(0,-1): self.tail = self.tail_down
 
     def move_snake(self):
         body_copy = self.body[:-1]
