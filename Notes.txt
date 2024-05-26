@@ -3,7 +3,7 @@
 =>GRY
 1.Pac-Man
 2.Space Invaders
-3.Snake
+3.Snake --- done {Dodac dzwieki, poprawic grafike}
 
 
 =>BAZA DANYCH
